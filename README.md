@@ -21,6 +21,8 @@ Change accuracy:
 ```
 typist --accuracy 0.5 type README.md
 # or
+typist -a 0.5 type README.md
+# or
 TYPIST_ACCURACY=0.5 typist type README.md
 ```
 
@@ -28,6 +30,8 @@ Change words per minute:
 
 ```
 typist --wpm 100 type README.md
+# or
+typist -w 100 type README.md
 # or
 TYPIST_WPM=100 typist type README.md
 ```
