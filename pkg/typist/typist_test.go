@@ -91,6 +91,16 @@ func TestTypeError(t *testing.T) {
 	assert.Equal(t, "b\bab\n", w.String())
 }
 
+func TestTypeErrorTab(t *testing.T) {
+	w := new(bytes.Buffer)
+	err := Typist{
+		WPM:      math.MaxUint32,
+		Accuracy: 0,
+	}.Type(w, "\tf")
+	assert.NoError(t, err)
+	assert.Equal(t, "\tf\n", w.String())
+}
+
 func TestTypeWriterError(t *testing.T) {
 	w := new(errorWriter)
 	err := Typist{

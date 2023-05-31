@@ -49,8 +49,8 @@ func (t Typist) Type(w io.Writer, s string) error {
 	for i, r := range s {
 		// Occasionally skip a character and correct the "mistake".
 		if t.Accuracy < rand.Float64() {
-			// Do not error if there is no next character or when around a or line break.
-			if i < len(s) && r != '\n' && rune(s[i+1]) != '\n' {
+			// Do not error if there is no next character or when around a disallowed rune.
+			if i+1 < len(s) && errorAllowed(r, rune(s[i+1])) {
 				t.Keystroke(w, rune(s[i+1]))
 				t.Keystroke(w, '\b')
 			}
@@ -90,4 +90,17 @@ func randomDelay(wpm int) time.Duration {
 	mu := avgDelay
 	sigma := avgDelay / 3
 	return time.Duration(rand.NormFloat64()*sigma + mu)
+}
+
+// errorAllowed returns false if one of the provided runes results in terminals when deleted via \b. For example, a tab
+// will produce multiple spaces. A subsequent \b will remove only one of these spaces.
+func errorAllowed(r ...rune) bool {
+	for _, v := range r {
+		switch v {
+		case '\n', '\t':
+			return false
+		}
+	}
+
+	return true
 }
