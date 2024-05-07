@@ -12,6 +12,7 @@ import (
 )
 
 var typeCmd = &cobra.Command{
+	Args:  cobra.RangeArgs(0, 1),
 	Use:   "type",
 	Short: "Emulate typing standard input (or the contents of a file) to standard output",
 	RunE: func(cmd *cobra.Command, args []string) error {
