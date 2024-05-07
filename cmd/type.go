@@ -12,7 +12,7 @@ import (
 )
 
 var typeCmd = &cobra.Command{
-	Args:  cobra.RangeArgs(0, 1),
+	Args:  cobra.MaximumNArgs(1),
 	Use:   "type",
 	Short: "Emulate typing standard input (or the contents of a file) to standard output",
 	RunE: func(cmd *cobra.Command, args []string) error {
@@ -39,7 +39,7 @@ var typeCmd = &cobra.Command{
 		}
 
 		if err := scanner.Err(); err != nil {
-			return fmt.Errorf("cannot read standard input: %w", err)
+			return fmt.Errorf("cannot read input: %w", err)
 		}
 
 		return nil
