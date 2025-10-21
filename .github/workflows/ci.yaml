@@ -18,7 +18,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v6
         with:
-          node-version: "20"
+          node-version: lts/*
       - run: |
           yarn add @commitlint/cli
           yarn add @commitlint/config-conventional
@@ -50,7 +50,7 @@ jobs:
           go-version-file: go.mod
       - uses: actions/setup-node@v6
         with:
-          node-version: "20"
+          node-version: lts/*
       - uses: goreleaser/goreleaser-action@v6
         with:
           install-only: true
